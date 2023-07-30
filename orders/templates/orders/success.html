@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #message {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="message">Ваш заказ успешно оплачен. Оставайтесь на странице, вы будете перенаправлены автоматически.</div>
+    </div>
+
+    <script>
+        // Функция для перенаправления на страницу 'personal_data'
+        function redirectToPersonalData() {
+            window.location.href = '/login/personal_data/';
+        }
+
+        // Функция для обратного отсчета и перенаправления
+        function countdown() {
+            var seconds = 10;
+
+            var countdownInterval = setInterval(function() {
+                seconds--;
+
+                if (seconds === 0) {
+                    clearInterval(countdownInterval);
+                    redirectToPersonalData();
+                }
+            }, 1000);
+        }
+
+        // Запускаем обратный отсчет и перенаправление при загрузке страницы
+        window.onload = function() {
+            document.getElementById('message').innerHTML = 'Ваш заказ успешно оплачен. Оставайтесь на странице, вы будете перенаправлены автоматически.';
+            countdown();
+        };
+    </script>
+</body>
+</html>

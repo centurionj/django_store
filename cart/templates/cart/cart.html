@@ -1,0 +1,145 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block title %}
+Корзина
+{% endblock %}
+{% block body %}
+
+<!-- cart -->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Корзина</h1>
+      </div>
+    </div>
+
+    <div class="row gutter-3 gutter-lg-1">
+
+      <!-- content -->
+      <div class="col">
+        <div class="bg-white cart-item-list p-2 p-lg-3 mb-1">
+          {% if cart_items %}
+          <form method="post" action="{% url 'cart' %}">
+            {% csrf_token %}
+            {% for cart_item in cart_items %}
+            <div class="cart-item">
+              <a href="{% url 'product_detail' cart_item.product.slug %}" class="cart-item-image"><img src="{{ cart_item.product.image }}" alt="Product Image"></a>
+              <div class="cart-item-body">
+                <div class="row">
+                  <div class="col-10">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h5 class="cart-item-title">{{ cart_item.product.name }}</h5>
+                        <small class="cart-item-subtitle">{{ cart_item.product.brand }}</small>
+                        <ul class="cart-item-meta">
+                          <li>{{ cart_item.price }} ₽</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-6">
+                        <ul class="list list--horizontal">
+                          <li class="mr-2">
+                            <div class="dropdown">
+                              <a class="dropdown-toggle" href="#" role="button" id="dropdown-size-{{ cart_item.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Размер <span>{{ cart_item.size }}</span>
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdown-size-{{ cart_item.id }}">
+                                {% for size in cart_item.product.sizes.all %}
+                                <a class="dropdown-item {% if cart_item.size == size.title %}active{% endif %}" href="#" onclick="changeSize(event, '{{ cart_item.id }}', '{{ size.title }}')">{{ size.title }}</a>
+                                {% endfor %}
+                              </div>
+                            </div>
+                            <input type="hidden" name="size_{{ cart_item.id }}" value="{{ cart_item.size }}">
+                          </li>
+                          <li>
+                            <div class="dropdown">
+                              <a class="dropdown-toggle" href="#" role="button" id="dropdown-quantity-{{ cart_item.id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Количество <span>{{ cart_item.quantity }}</span>
+                              </a>
+                              <div class="dropdown-menu" aria-labelledby="dropdown-quantity-{{ cart_item.id }}">
+                                {% for quantity in "12345" %}
+                                <a class="dropdown-item {% if cart_item.quantity == quantity %}active{% endif %}" href="#" onclick="changeQuantity('{{ cart_item.id }}', '{{ quantity }}')">{{ quantity }}</a>
+                                {% endfor %}
+                              </div>
+                            </div>
+                            <input type="hidden" name="quantity_{{ cart_item.id }}" value="{{ cart_item.quantity }}">
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-2 text-right">
+                    <ul class="cart-item-options">
+                      <li><a href="{% url 'del_cart_item' cart_item_id=cart_item.id %}" class="bi bi-x-lg"></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="row">
+              <div class="col-12">
+                <input type="submit" value="Сохранить" style="background-color: transparent; border: none;">
+              </div>
+            </div>
+          </form>
+          {% else %}
+          <p>Корзина пуста</p>
+          {% endif %}
+        </div>
+
+        <a href="{% url 'index' %}" class="underlined">Продолжить шоппинг</a>
+      </div>
+
+      <!-- sidebar -->
+      <aside class="col-lg-4">
+        <div class="bg-white p-2 p-lg-3">
+          <h2 class="mb-3 text-uppercase fs-20">Детали</h2>
+          <div class="input-combined mb-2">
+            <form method="post" action="{% url 'use_promo' %}">
+              {% csrf_token %}
+              <input type="text" name="promo_code" class="form-control" placeholder="Введите промокод" aria-label="Promo code" aria-describedby="button-addon2">
+              <button class="btn btn-white" type="submit" id="button-addon2">Применить</button>
+              <span class="input-combined_indicator"></span>
+            </form>
+          </div>
+          <ul class="list-group list-group-minimal mb-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Товары
+              <span>{{ item_count }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center text-uppercase font-weight-bold">
+              Итого к оплате
+              <span>{{ total_price }} ₽</span>
+            </li>
+          </ul>
+          <a href="{% url 'make_order' %}" class="btn btn-primary btn-block">Перейти к оформлению</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  function changeSize(event, cartItemId, size) {
+    event.preventDefault();
+    const dropdown = document.getElementById(`dropdown-size-${cartItemId}`);
+    const sizeSpan = dropdown.querySelector("span");
+    sizeSpan.textContent = size;
+
+    const sizeInput = document.querySelector(`input[name="size_${cartItemId}"]`);
+    sizeInput.value = size;
+  }
+
+  function changeQuantity(cartItemId, quantity) {
+    const dropdownToggle = document.getElementById(`dropdown-quantity-${cartItemId}`);
+    const quantitySpan = dropdownToggle.querySelector("span");
+    quantitySpan.textContent = quantity;
+
+    const quantityInput = document.querySelector(`input[name="quantity_${cartItemId}"]`);
+    quantityInput.value = quantity;
+  }
+</script>
+
+{% endblock %}

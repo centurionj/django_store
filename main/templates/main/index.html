@@ -1,0 +1,150 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block title %}
+Главная
+{% endblock %}
+{% block body %}
+<!-- categories -->
+    <section class="py-0">
+      <div class="container-full">
+        <div class="row gutter-0">
+          <div>
+            <div class="card card-tile">
+              <figure class="card-image equal vh-50 vh-md-100">
+                <span class="image image--scroll skrollable skrollable-between" style="background-image: url({% static 'main/images/1653384696_11-celes-club-p-chernii-muzhskoi-fon-krasivie-11.jpg' %}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></span>
+              </figure>
+              <div class="card-footer text-white p-lg-5">
+                <div class="row gutter-1">
+                  <div class="col-md-8">
+                    <h2>Мужские образы</h2>
+                  </div>
+                  <div class="col-md-4 text-md-right">
+                    <a href="/catalog/?gender=M" class="btn btn-outline-white">Перейти</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- categories -->
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <span class="eyebrow text-muted">Выбери свой стиль</span>
+            <h2>и будь в тренде</h2>
+          </div>
+        </div>
+        <div class="row gutter-1">
+  <div class="col-lg-6">
+    <figure class="equal">
+      <span class="image" style="background-image: url({% static 'main/images/18-6-Large.jpg' %})"></span>
+    </figure>
+  </div>
+  <div class="col-6 col-lg-3">
+    {% for product in men_products|slice:":2" %}
+    <div class="card card-product mb-1">
+      <figure class="card-image equal">
+        <a href="{% url 'product_detail' product.slug %}" class="image">
+          <img src="{{ product.image }}" alt="Image">
+          {% for image in product.images.all %}
+              <img src="{{ image.image }}" alt="Image">
+              {% endfor %}
+        </a>
+      </figure>
+      <a href="{% url 'product_detail' product.slug %}" class="card-body">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <span class="price">{{ product.price }} ₽</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-6 col-lg-3">
+    {% for product in men_products|slice:"3:5" %}
+    <div class="card card-product mb-1">
+      <figure class="card-image equal">
+        <a href="{% url 'product_detail' product.slug %}" class="image">
+          <img src="{{ product.image }}" alt="Image">
+          {% for image in product.images.all %}
+              <img src="{{ image.image }}" alt="Image">
+              {% endfor %}
+        </a>
+      </figure>
+      <a href="{% url 'product_detail' product.slug %}" class="card-body">
+        <h3 class="card-title">{{ product.name }}</h3>
+        <span class="price">{{ product.price }} ₽</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+        <div class="row">
+          <div class="col text-center">
+            <a href="/catalog/?gender=M" class="underlined">Больше</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- cta -->
+    <section class="py-0 no-overflow">
+      <div class="image image-scroll skrollable skrollable-before" style="background-image: url({% static 'main/images/indw1.jpg' %}); transform: translateY(0%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+      <div class="container">
+        <div class="row gutter-2 gutter-md-4 justify-content-between vh-75 py-10">
+          <div class="col-md-6 align-self-end">
+            <div class="bg-white w-50 w-lg-40 d-inline-block p-3">
+              <h2 class="fs-24"><span class="d-block text-gray">Одежда от дизайнеров</span></h2>
+              <a href="/catalog/?gender=F" class="underlined">Перейти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- look -->
+    <section>
+  <div class="container">
+    <div class="row align-items-end">
+      <div class="col-md-6">
+        <h2>Женские образы</h2>
+      </div>
+      <div class="col-md-6 text-right">
+        <a href="/catalog/?gender=F" class="underlined">Выбрать</a>
+      </div>
+    </div>
+    <div class="row gutter-1">
+      {% for product in women_products|slice:":3" %}
+      <div class="col-lg-4">
+        <div class="card card-product">
+          <figure class="card-image">
+            <a href="{% url 'product_detail' product.slug %}">
+              <img src="{{ product.image }}" alt="Image">
+              {% for image in product.images.all %}
+              <img src="{{ image.image }}" alt="Image">
+              {% endfor %}
+            </a>
+          </figure>
+          <a href="{% url 'product_detail' product.slug %}" class="card-body">
+            <div class="row align-items-center">
+              <div class="col-8">
+                <h3 class="card-title font-weight-bold">{{ product.name }}</h3>
+              </div>
+              <div class="col-4 text-right">
+                <span class="price">{{ product.price }} ₽</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

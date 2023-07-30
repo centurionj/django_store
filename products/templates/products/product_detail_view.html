@@ -1,0 +1,191 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block title %}
+{{ product.name }}
+{% endblock %}
+{% block body %}
+
+
+    <!-- breadcrumbs -->
+    <section class="breadcrumbs bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">путь корень</a></li>
+                <li class="breadcrumb-item"><a href="">Women</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- product -->
+    <section class="hero">
+      <div class="container">
+        <div class="row gutter-2 gutter-md-4 justify-content-between">
+
+
+          <!-- carousel -->
+          <div class="col-lg-7">
+    <div class="row gutter-1 justify-content-between">
+        <div class="col-lg-10 order-lg-2">
+            <div class="owl-carousel owl-carousel--alt gallery owl-loaded owl-drag" data-margin="0" data-slider-id="1" data-thumbs="true" data-nav="true">
+                <div class="owl-stage-outer">
+                    <div class="owl-stage">
+                        {% for image in product.images.all %}
+                        <div class="owl-item active">
+                            <figure>
+                                <a href=""><img src="{{ image.image }}" alt="Image"></a>
+                            </figure>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="owl-nav">
+                    <button type="button" role="presentation" class="owl-prev disabled">
+                        <span aria-label="Previous">‹</span>
+                    </button>
+                    <button type="button" role="presentation" class="owl-next">
+                        <span aria-label="Next">›</span>
+                    </button>
+                </div>
+                <div class="owl-dots disabled">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 text-center text-lg-left order-lg-1">
+            <div class="owl-thumbs" data-slider-id="1">
+                {% for image in product.images.all %}
+                <span class="owl-thumb-item">
+                    <img src="{{ image.image }}" alt="">
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+          <div class="col-lg-4 mb-5 mb-lg-0">
+
+            <!-- description -->
+            <div class="row">
+              <div class="col-12">
+                <span class="eyebrow text-muted">{{product.brand}}</span>
+                <h1>{{product.name}}</h1>
+                <span class="price fs-18">{{product.price}} ₽</span>
+              </div>
+            </div>
+
+
+            <div class="row gutter-2">
+  <form method="POST" action="{% url 'add_item_to_cart' %}">
+    {% csrf_token %}
+    <div class="col-12">
+      <div class="form-group">
+        <label>Размер</label>
+        <div class="btn-group-toggle btn-group-square" data-toggle="buttons">
+          {% for size in sizes %}
+          <label class="btn">
+            <input type="radio" name="size_title" id="option-{{ forloop.counter }}" value="{{ size.title }}" required> {{ size.title }}
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <label>Product code</label>
+        <small class="d-block text-dark">#{{ product.id }}</small>
+      </div>
+    </div>
+    <div class="col-12">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <button type="submit" class="btn btn-block btn-primary">Добавить в корзину</button>
+    </div>
+  </form>
+</div>
+
+
+
+            <!-- accordion -->
+            <div class="row">
+              <div class="col">
+                <div class="accordion" id="accordion-1">
+                  <div class="card active">
+                    <div class="card-header" id="heading-1-1">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link bi bi-arrow-down-short" type="button" data-toggle="collapse" data-target="#collapse-1-1" aria-expanded="true" aria-controls="collapse-1-1">
+                          Описание
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="collapse-1-1" class="collapse show" aria-labelledby="heading-1-1" data-parent="#accordion-1">
+                      <div class="card-body">
+                        <p>{{product.description}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- related -->
+    <section class="no-overflow">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Товары этого брэнда</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="owl-carousel visible owl-loaded owl-drag" data-items="[4,3,2,1]" data-margin="10" data-nav="true" data-loop="true">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage">
+                            {% for similar_product in similar_products %}
+                            <div class="owl-item">
+                                <div class="card card-product">
+                                    <figure class="card-image">
+                                        <a href="{% url 'add_product_to_favorite' similar_product.id %}" class="action">
+                                            <i class="bi bi-heart"></i>
+                                        </a>
+                                        <a href="{% url 'product_detail' similar_product.slug %}">
+                                            <img src="{{ similar_product.image }}" alt="Image">
+                                        </a>
+                                    </figure>
+                                    <a href="{% url 'product_detail' similar_product.slug %}" class="card-body">
+                                        <h3 class="card-title">{{ similar_product.name }}</h3>
+                                        <span class="price">{{ similar_product.price }} ₽</span>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="owl-nav">
+                        <button type="button" role="presentation" class="owl-prev">
+                            <span aria-label="Previous">‹</span>
+                        </button>
+                        <button type="button" role="presentation" class="owl-next">
+                            <span aria-label="Next">›</span>
+                        </button>
+                    </div>
+                    <div class="owl-dots disabled"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

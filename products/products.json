@@ -1,0 +1,214 @@
+{
+  "products": [
+    {
+      "name": "Классическая белая футболка",
+      "description": "Вечная белая футболка из мягкого хлопкового материала.",
+      "price": 19.99,
+      "category": "Футболки",
+      "brand": "Nike",
+      "image": "https://cdn.sportmaster.ru/upload/resize_cache/iblock/910/800_800_1/82822250299.jpg",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://cdn.sportmaster.ru/upload/resize_cache/iblock/cdc/800_800_1/82822260299.jpg",
+        "https://cdn.sportmaster.ru/upload/resize_cache/iblock/640/800_800_1/82822270299.jpg"
+      ]
+    },
+    {
+      "name": "Модное платье в полоску",
+      "description": "Элегантное платье с вертикальным полосатым узором.",
+      "price": 59.99,
+      "category": "Платья",
+      "brand": "Zara",
+      "image": "https://www.charuel.ru/upload/iblock/336/yf6obgho8zxyq32ak53xvxxxyd4lk5db.jpg",
+      "is_sale": true,
+      "gender": "F",
+      "sizes": ["XS", "S", "M", "L"],
+      "images": [
+        "https://www.charuel.ru/upload/iblock/c6a/ushh8ddk7j52729v5mok0yautqhwnmmm.jpg",
+        "https://www.charuel.ru/upload/iblock/302/klmz9wx7qkvmqpvd6xov2ccd417m782q.jpg"
+      ]
+    },
+    {
+      "name": "Классический костюм",
+      "description": "Элегантный костюм для деловых встреч.",
+      "price": 149.99,
+      "category": "Костюмы",
+      "brand": "Hugo Boss",
+      "image": "https://pizhon.by/assets/cache_image/products/7483/9bbe15be2c32014a4a3593f290e21d4f_1066x1500_71c.jpeg",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["M", "L", "XL", "XXL"],
+      "images": [
+        "https://pizhon.by/assets/cache_image/products/7483/6adb473e133eed3ddd08474bcc0e0c3a_1066x1500_71c.jpeg",
+        "https://pizhon.by/assets/cache_image/products/7483/21d70b70c0da7853f0d4d4012245f238_1066x1500_71c.jpeg"
+      ]
+    },
+    {
+      "name": "Кожаная куртка с отложным воротником",
+      "description": "Стильная кожаная куртка для повседневного ношения.",
+      "price": 129.99,
+      "category": "Куртки",
+      "brand": "Levi's",
+      "image": "https://www.google.com/url?q=https://www.ozon.ru/product/kozhanaya-kurtka-naturalnaya-kozha-964957719/&sa=U&ved=0ahUKEwjY1pWnkrGAAxVxQ_EDHWzTCWkQrzwItgE&usg=AOvVaw0AEGD6qTlIFIMeRnohcSoZ",
+      "is_sale": true,
+      "gender": "M",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRsdXjtUP68QOws2_DpcCO0nU-v2uByh8zvIGeNpyqtMHIot0v6tud8OPAzR9E&usqp=CAE",
+        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRa-HqB3T_TqxQF1laj3JOv4dIlZuba51cOEdYvjv7lb7iLTXlW-35UD-hmtnHUqgKIVX_2L64&usqp=CAE"
+      ]
+    },
+    {
+      "name": "Коктейльное платье с вышивкой",
+      "description": "Изысканное платье с вышитым узором для особых случаев.",
+      "price": 79.99,
+      "category": "Платья",
+      "brand": "Dolce & Gabbana",
+      "image": "https://www-s.mlo.me/upen/v/202307/20230725/365730ae-1555-4924-adf3-4a4e368e930a.jpg",
+      "is_sale": false,
+      "gender": "F",
+      "sizes": ["S", "M", "L"],
+      "images": [
+        "https://www-s.mlo.me/upen/v/202307/20230725/b418d841-0377-475d-aca7-be570d8fcc52.jpg",
+        "https://www-s.mlo.me/upen/v/2023/202307/20230724/202307241526163584310.jpg"
+      ]
+    },
+    {
+      "name": "Теплая зимняя куртка",
+      "description": "Утепленная куртка для защиты от холода зимой.",
+      "price": 89.99,
+      "category": "Куртки",
+      "brand": "The North Face",
+      "image": "https://a.lmcdn.ru/img135x194/M/P/MP002XM08YLL_18266058_1_v1_2x.jpg",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["XS", "S", "M", "L"],
+      "images": [
+        "https://a.lmcdn.ru/product/M/P/MP002XM08YLL_18266060_3_v1_2x.jpg",
+        "https://a.lmcdn.ru/product/M/P/MP002XM08YLL_18266061_4_v1_2x.jpg"
+      ]
+    },
+    {
+      "name": "Джинсовые шорты",
+      "description": "Стильные джинсовые шорты для летнего сезона.",
+      "price": 34.99,
+      "category": "Шорты",
+      "brand": "Calvin Klein",
+      "image": "https://ae04.alicdn.com/kf/S728f4fd7e9b14b3fb86fe716c5d1169fz.jpg_640x640.jpg",
+      "is_sale": true,
+      "gender": "M",
+      "sizes": ["S", "M", "L"],
+      "images": [
+        "https://ae04.alicdn.com/kf/S753b5a8fa8774314a3476a31244fc72bU.jpg",
+        "https://ae04.alicdn.com/kf/S5cce0064122c401bb5cbef2c90e15392P.jpg"
+      ]
+    },
+    {
+      "name": "Летнее платье в цветочном принте",
+      "description": "Легкое платье с ярким цветочным принтом.",
+      "price": 39.99,
+      "category": "Платья",
+      "brand": "H&M",
+      "image": "https://ilalimitedcollection.com/wp-content/uploads/2023/06/img_6495-600x900.jpg",
+      "is_sale": false,
+      "gender": "F",
+      "sizes": ["XS", "S", "M"],
+      "images": [
+        "https://ilalimitedcollection.com/wp-content/uploads/2023/06/img_6276-scaled.jpg",
+        "https://ilalimitedcollection.com/wp-content/uploads/2023/06/img_6493-1-600x900.jpg"
+      ]
+    },
+    {
+      "name": "Спортивные брюки",
+      "description": "Удобные спортивные брюки для активного отдыха.",
+      "price": 29.99,
+      "category": "Брюки",
+      "brand": "Adidas",
+      "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSIZ8tbNVpNb04fb1FsivyAVZEJaojFXHUJ_J9mW3RS15d1DAnjJXuWvuQGJt0G9J6lMCJw5P4&usqp=CAE",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTNdd4XrqfQ4fzqva9eED1W3b_vruXZeGKjeWtGANNiHMX0hW8&usqp=CAY",
+        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRH8B7PYpCHyNDAydO_5uL5tLYJPJqCocW_XcKAceeWbuu6glw&usqp=CAY"
+      ]
+    },
+    {
+      "name": "Легкая весенняя куртка",
+      "description": "Стильная весенняя куртка для переменчивой погоды.",
+      "price": 69.99,
+      "category": "Куртки",
+      "brand": "Puma",
+      "image": "https://a.lmcdn.ru/product/M/P/MP002XM0SX7U_14808599_1_v1_2x.jpg",
+      "is_sale": true,
+      "gender": "M",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://a.lmcdn.ru/product/M/P/MP002XM0SX7U_14808601_3_v1_2x.jpg",
+        "https://a.lmcdn.ru/product/M/P/MP002XM0SX7U_14808602_4_v1_2x.jpg"
+      ]
+    },
+    {
+      "name": "Футболка с логотипом",
+      "description": "Комфортная футболка с логотипом популярного бренда.",
+      "price": 24.99,
+      "category": "Футболки",
+      "brand": "Converse",
+      "image": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQcXbcH9Y7P2T3b0L_7O5Yah4LYUJPdeoG8oMBQw3w0FBeoe2Q&usqp=CAY",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["XS", "S", "M", "L"],
+      "images": [
+        "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSAQ7MqlG9xZerRPeJiZfCaDR-9oab4CXhpivBFVq4I2C411Y3J&usqp=CAY",
+        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQTQtc8_n-xZHX17qZ30sTw0jqvXRZ02tPqS6hrB3fMhnsILsST&usqp=CAY"
+      ]
+    },
+    {
+      "name": "Кардиган с косами",
+      "description": "Теплый кардиган с узором в виде кос.",
+      "price": 44.99,
+      "category": "Свитеры",
+      "brand": "Tommy Hilfiger",
+      "image": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTcTUDy0dssaYfEabYoGhTO0mHDfQYlyzYq8okyO3xeTfHfeoTRA3ganHkpRyY&usqp=CAE",
+      "is_sale": false,
+      "gender": "F",
+      "sizes": ["S", "M", "L"],
+      "images": [
+        "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS3oQxzrRY10CddzwwAFNAsSYUhOXzgdIuGxnC8QXXsI5j318E&usqp=CAY",
+        "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSW0QboQ8GwJ2h-MSzCQBFHry3ibWBhU1Ek5gy1eDHFCwwQzpft&usqp=CAY"
+      ]
+    },
+    {
+      "name": "Пляжные шорты",
+      "description": "Яркие пляжные шорты для отдыха на море.",
+      "price": 19.99,
+      "category": "Шорты",
+      "brand": "Rip Curl",
+      "image": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRGwKetC1CV95cdywazARJLw7SWGIcvs2hU3Y01gcJ4dyCKmcw&usqp=CAY",
+      "is_sale": false,
+      "gender": "M",
+      "sizes": ["S", "M", "L", "XL"],
+      "images": [
+        "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqaA9SE8DtPUy8A5vb2__lQbKgZ4ks3Uic_890WmNUhS9QTysM&usqp=CAY",
+        "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTo3issrKr8DJOhq3vh3gombB6Mbef_fTD7r-LSluYv2eZEhRvG&usqp=CAY"
+      ]
+    },
+    {
+      "name": "Джинсовая куртка с украшениями",
+      "description": "Модная джинсовая куртка с вышивкой и камнями.",
+      "price": 79.99,
+      "category": "Куртки",
+      "brand": "Guess",
+      "image": "https://img.guess.com/image/upload/f_auto,q_auto,fl_strip_profile,e_sharpen:50,w_1920,c_scale,dpr_auto/v1/EU/Style/ECOMM/W3GN45D4YO0-ARTP",
+      "is_sale": true,
+      "gender": "F",
+      "sizes": ["XS", "S", "M"],
+      "images": [
+        "https://img.guess.com/image/upload/f_auto,q_auto,fl_strip_profile,e_sharpen:50,w_1920,c_scale,dpr_auto/v1/EU/Style/ECOMM/W3GN45D4YO0-ARTP-ALT1",
+        "https://img.guess.com/image/upload/f_auto,q_auto,fl_strip_profile,e_sharpen:50,w_1920,c_scale,dpr_auto/v1/EU/Style/ECOMM/W3GN45D4YO0-ARTP-ALT3"
+      ]
+    }
+  ]
+}

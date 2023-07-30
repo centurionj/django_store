@@ -1,0 +1,191 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% load mptt_tags %}
+{% block title %}
+Каталог
+{% endblock %}
+{% block body %}
+
+<form method="GET">
+    <!-- breadcrumbs -->
+    <section class="breadcrumbs bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <!-- Breadcrumb content goes here if needed -->
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- listing -->
+    <section class="pt-6">
+        <div class="container">
+            <div class="row gutter-4">
+                <!-- sidebar -->
+                <aside class="col-lg-3 sidebar">
+                {% if gender == 'F' %}
+                    <div class="widget d-none d-lg-block">
+                        <span class="widget-title">Women</span>
+                            {% for brand in brand_list_women %}
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                       {{ brand.name }}
+                                        </button>
+                                    </h2>
+                                    {% for category in brand.categories.all %}
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <ul>
+                                            <li class="accordion-body"><a href="{% url 'catalog' %}?gender=F&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                                        </ul>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                    </div><br>
+                    {% else %}
+                <div class="widget d-none d-lg-block">
+                            <span class="widget-title">Men</span>
+                            {% for brand in brand_list_men %}
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                       {{ brand.name }}
+                                        </button>
+                                    </h2>
+                                    {% for category in brand.categories.all %}
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <ul>
+                                            <li class="accordion-body"><a href="{% url 'catalog' %}?gender=M&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                                        </ul>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}<br>
+
+                    <div class="widget">
+                        <div class="d-flex justify-content-between">
+                            <span class="widget-title">Фильтры
+                                <button type="submit" class="btn btn-sm btn-primary btn-transparent small text-red">Применить</button>
+                                <a href="?page=1" class="small text-red">сброс</a>
+                            </span>
+                        </div>
+                        <div class="accordion" id="accordion-1">
+                            <div class="card">
+                                <div class="card-header" id="heading-1-2">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-2" aria-expanded="false" aria-controls="collapse-1-2">
+                                            Размер
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse-1-2" class="collapse" aria-labelledby="heading-1-2">
+                                    <div class="card-body">
+                                        <div class="btn-group-toggle btn-group-square" data-toggle="buttons">
+                                            {% for size in sizes %}
+                                            <label class="btn">
+                                                <input type="checkbox" name="size_{{ size }}" id="size_{{ size }}" {% if size in selected_sizes %}checked{% endif %}> {{ size }}
+                                            </label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header" id="heading-1-4">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-4" aria-expanded="false" aria-controls="collapse-1-4">
+                                            Цена
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapse-1-4" class="collapse" aria-labelledby="heading-1-4">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="min-price">Минимальная цена:</label>
+                                            <input type="number" class="form-control" id="min-price" name="min_price" min="0" value="{{ min_price }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="max-price">Максимальная цена:</label>
+                                            <input type="number" class="form-control" id="max-price" name="max_price" min="0" value="{{ max_price }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- content -->
+                <div class="col-lg-9">
+                    <div class="row gutter-1">
+                        {% for product in page_obj %}
+                        <div class="col-6 col-md-4">
+                            <div class="card card-product">
+                                <figure class="card-image">
+                                    <a href="{% url 'add_product_to_favorite' product.id %}" class="action"><i class="bi bi-heart"></i></a>
+                                    <a href="{% url 'product_detail' product.slug %}">
+                                        <img src="{{ product.image }}" alt="{{ product.name }}">
+                                        {% for image in product.images.all %}
+                                        <img src="{{ image.image }}" alt="Image">
+                                        {% endfor %}
+                                    </a>
+                                </figure>
+                                <div class="card-footer">
+                                    <h3 class="card-title"><a href="">{{ product.name }}</a></h3>
+                                    <span class="brand">{{ product.brand }}</span>
+                                    <span class="price">{{ product.price }} ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 and not forloop.last %}
+                    </div>
+                    <div class="row gutter-1">
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.previous_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Предыдущая</a></li>
+{% endif %}
+
+{% for num in page_obj.paginator.page_range %}
+{% if page_obj.number == num %}
+<li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+{% else %}
+<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ num }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">{{ num }}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if page_obj.has_next %}
+<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.next_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Следующая</a></li>
+{% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+{% endblock %}

@@ -1,0 +1,123 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Авторизация
+{% endblock %}
+{% block body %}
+    <!-- login -->
+    <section>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-4">
+            <div class="card boxed">
+              <div class="card-header">
+                <ul class="nav nav-tabs nav-fill card-header-tabs lavalamp" id="component-1" role="tablist"><div class="lavalamp-object ease" style="transition-duration: 0.2s; width: 174.57px; height: 64px; transform: translate(0px, 0px);"></div>
+                  <li class="nav-item lavalamp-item" style="z-index: 5; position: relative;">
+                    <a class="nav-link active" data-toggle="tab" href="#component-1-1" role="tab" aria-controls="component-1-1" aria-selected="true">Вход</a>
+                  </li>
+                  <li class="nav-item lavalamp-item" style="z-index: 5; position: relative;">
+                    <a class="nav-link" data-toggle="tab" href="#component-1-2" role="tab" aria-controls="component-1-2" aria-selected="false">Регистрация</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="component-1-content">
+                  <div class="tab-pane fade active show" id="component-1-1" role="tabpanel" aria-labelledby="component-1-1">
+                    <form method="post" action="{% url 'entry' %}" class="row gutter-2">
+                      {% csrf_token %}
+                      <div class="col-12">
+                        <fieldset>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="email" id="inputEmail" class="form-control form-control-lg" placeholder="Email address" required="">
+                                <label for="inputEmail">Email</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="password" name="password" id="inputPassword" class="form-control form-control-lg" placeholder="Password" required="">
+                                <label for="inputPassword">Password</label>
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="col-12 text-center">
+                        <a href="{% url 'forget_password' %}" class="underline fs-14">Забыли пароль? Получить разовый пароль на почту.</a>
+                      </div>
+                      <div class="col-12">
+                        <input type="submit" class="btn btn-primary btn-block" value="Войти">
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="component-1-2" role="tabpanel" aria-labelledby="component-1-2">
+                    <form action="{% url 'register' %}" method="post" class="row gutter-2">
+                      {% csrf_token %}
+                      <div class="col-12">
+                        <fieldset>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="first_name" id="inputName" class="form-control form-control-lg" placeholder="First name" required="">
+                                <label for="inputName">Имя</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="last_name" id="inputlastname" class="form-control form-control-lg" placeholder="Last Name" required="">
+                                <label for="inputlastname">Фамилия</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="Address" required="">
+                                <label for="address">Адрес</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="email" id="Email" class="form-control form-control-lg" placeholder="Email" required="">
+                                <label for="Email">Email</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="text" name="phone_number" id="phone" class="form-control form-control-lg" placeholder="Номер телефона" required="">
+                                <label for="phone">Телефон</label>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-label-group">
+                                <input type="password" name="password" id="inputPassword2" class="form-control form-control-lg" placeholder="Password" required="">
+                                <label for="inputPassword">Password</label>
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="col-12">
+                        <input type="submit" class="btn btn-primary btn-block" value="Регистрация">
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

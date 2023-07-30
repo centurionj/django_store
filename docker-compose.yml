@@ -1,0 +1,65 @@
+version: '3.11'
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    environment:
+      - TZ=Asia/Vladivostok
+      - DEBUG=True
+      - DJANGO_ALLOWED_HOSTS=0.0.0.0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+    networks:
+      - app_net
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    networks:
+      - app_net
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    networks:
+      - app_net
+
+  nginx:
+      build:
+        context: .
+        dockerfile: ./nginx/Dockerfile
+      restart: always
+      ports:
+        - "80:80"  # Откроем порт 80 на хосте и сопоставим его с портом 80 в контейнере
+      volumes:
+        - static_volume:/app/static/
+        - media_volume:/app/media/
+      depends_on:
+        - web
+      networks:
+        - app_net
+
+networks:
+  app_net:
+
+volumes:
+  pg_data:
+  static_volume:
+  media_volume:

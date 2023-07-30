@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+{% load static %}
+{% load mptt_tags %}
+<html lang="ru" class="skrollr skrollr-desktop"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'main/styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'main/styles/vendor.css' %}">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script type="text/javascript" async="" src="{% static 'main/scripts/analytics.js' %}"></script>
+<script type="text/javascript" async="" src="{% static 'main/scripts/js.js' %}"></script>
+<script async="" src="{% static 'main/scripts/js(1).js' %}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-176058743-2');
+</script>
+
+
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+
+    <!-- header -->
+    <header class="header header-absolute">
+      <div class="container">
+        <div class="row">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <a href="{% url 'index' %}" class="navbar-brand order-1 order-lg-2"><img src="{% static 'main/images/logo.svg' %}" alt="Logo"></a>
+
+            <div class="collapse navbar-collapse order-4 order-lg-1" id="navbarMenu">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown dropdown-lg dropdown-hover">
+                  <a class="nav-link dropdown-toggle" href="{% url 'catalog' %}?gender=F" id="navbarDropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Женское
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown-2">
+            <div class="container">
+                <div class="row gutter-2">
+                    {% for brand in brand_list_women %}
+                    {% if brand.categories.all %}
+                    <div class="col-lg-2">
+                        <span class="eyebrow text-muted mb-1">{{ brand.name }}</span>
+                        <ul class="menu-list">
+                            {% for category in brand.categories.all %}
+                            {% if category in category_list_women %}
+                            <li class="menu-list-item">
+                                <a href="{% url 'catalog' %}?gender=F&brand={{ brand.slug }}&category={{ category.slug }}" class="menu-list-link">{{ category.name }}</a>
+                                {% if category.get_children_count %}
+                                <ul>
+                                    {% recursetree category %}
+                                    <li class="menu-list-item">
+                                        <a href="{% url 'catalog' %}?gender=F&brand={{ brand.slug }}&category={{ node.slug }}" class="menu-list-link">{{ node.name }}</a>
+                                    </li>
+                                    {% endrecursetree %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+                </li>
+                <li class="nav-item dropdown dropdown-lg dropdown-hover">
+                  <a class="nav-link dropdown-toggle" href="{% url 'catalog' %}?gender=M" id="navbarDropdown-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Мужское
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown-2">
+            <div class="container">
+                <div class="row gutter-2">
+                    {% for brand in brand_list_men %}
+                    {% if brand.categories.all %}
+                    <div class="col-lg-2">
+                        <span class="eyebrow text-muted mb-1">{{ brand.name }}</span>
+                        <ul class="menu-list">
+                            {% for category in brand.categories.all %}
+                            {% if category in category_list_men %}
+                            <li class="menu-list-item">
+                                <a href="{% url 'catalog' %}?gender=M&brand={{ brand.slug }}&category={{ category.slug }}" class="menu-list-link">{{ category.name }}</a>
+                                {% if category.get_children_count %}
+                                <ul>
+                                    {% recursetree category %}
+                                    <li class="menu-list-item">
+                                        <a href="{% url 'catalog' %}?gender=M&brand={{ brand.slug }}&category={{ node.slug }}" class="menu-list-link">{{ node.name }}</a>
+                                    </li>
+                                    {% endrecursetree %}
+                                </ul>
+                                {% endif %}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+                </li>
+                <li class="nav-item dropdown-lg dropdown-hover">
+  <a class="nav-link dropdown-toggle text-red" href="" id="navbarDropdown-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Распродажа
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown-3">
+    <div class="container">
+      <div class="row gutter-1">
+        {% for product in sale_products|slice:":2" %}
+        <div class="col-lg-6">
+          <div class="card card-tile">
+            <figure class="card-image equal equal-50">
+              <span class="image" style="background-image: url({{ product.image }})"></span>
+            </figure>
+            <div class="card-footer p-1">
+              <div class="bg-white p-2">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h4 class="fs-20"><a href="">{{ product.name }}</a></h4>
+                  </div>
+                  <div class="col text-right">
+                    <a href="{% url 'product_detail' product.slug %}" class="underline">Перейти</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% if sale_products|length > 3 %}
+      <div class="row">
+        <div class="col-12">
+          <p>Еще {{ sale_products|length|add:"-3" }} товаров со скидкой.<a href="{% url 'catalog' %}?sale=True"> Перейти</a></p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</li>
+
+
+              </ul>
+            </div>
+
+            <div class="collapse navbar-collapse order-5 order-lg-3" id="navbarMenu2">
+              <ul class="navbar-nav ml-auto position-relative">
+
+                <!-- user area -->
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+                  <a href="{% url 'login' %}" class="nav-icon dropdown-toggle" id="navbarDropdown-6" role="button"  aria-expanded="false">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="d-inline-block d-lg-none">Account</span>
+                  </a>
+                </li>
+
+                <!-- favourites -->
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+  <a href="" class="nav-icon" id="navbarDropdown-7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="bi bi-heart"></i>
+  </a>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown-7">
+    <div class="row gutter-3">
+      <div class="col-12">
+        <h3 class="eyebrow text-dark fs-16 mb-1">Понравилось</h3>
+      </div>
+
+{% if favourite_items %}
+{% for favourite_item in favourite_items|slice:":3" %}
+<div class="col-12">
+<div class="cart-item">
+<a href="{% url 'product_detail' favourite_item.slug %}" class="cart-item-image"><img src="{{ favourite_item.image }}" alt="Image"></a>
+<div class="cart-item-body">
+<div class="row">
+<div class="col-9">
+<h5 class="cart-item-title">{{ favourite_item.name }}</h5>
+<small>{{ favourite_item.brand }}</small>
+<ul class="list list--horizontal fs-14">
+<li>{{ favourite_item.price }} ₽</li>
+</ul>
+</div>
+<div class="col-3 text-right">
+<ul class="cart-item-options">
+<li><a href="{% url 'remove_favorite' favourite_item.id %}" class="bi bi-x-lg"></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% if favourite_items|length > 3 %}
+<div class="col-12">
+<p>Еще {{ favourite_items|length|add:"-3" }} товаров понравилось</p>
+</div>
+{% endif %}
+{% else %}
+
+  <p>Вы не лайкнули ни одного товара.</p>
+{% endif %}
+      <div class="col-12">
+        <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-block">Посмотреть все</a>
+      </div>
+    </div>
+  </div>
+</li>
+
+                <!-- cart -->
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+                  <a href ="{% url 'cart' %}" class="nav-icon dropdown-toggle" id="navbarDropdown-8" role="button" data-toggle="dropdown">
+                    <i class="bi bi-bag"></i>
+                    <span class="d-inline-block d-lg-none">Корзина</span>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown-8">
+                    <div class="row gutter-3">
+                      <div class="col-12">
+                        <h3 class="eyebrow text-dark fs-16 mb-0">Корзина</h3>
+                      </div>
+                      <div class="col-12">
+                          {% if cart_items %}
+{% for cart_item in cart_items|slice:":3" %}
+<div class="cart-item">
+<a href="{% url 'product_detail' cart_item.product.slug %}" class="cart-item-image"><img src="{{ cart_item.product.image }}" alt="Image"></a>
+<div class="cart-item-body">
+<div class="row">
+<div class="col-9">
+<h5 class="cart-item-title">{{ cart_item.product.name }}</h5>
+<small>{{ cart_item.product.brand }}</small>
+<ul class="list list--horizontal fs-14">
+<li>{{ cart_item.price }} ₽</li>
+</ul>
+<br>
+<ul class="list list--horizontal fs-14">
+<li>Количество: {{ cart_item.quantity }} шт</li>
+</ul>
+</div>
+<div class="col-3 text-right">
+<ul class="cart-item-options">
+<li><a href="{% url 'del_cart_item' cart_item_id=cart_item.id %}" class="bi bi-x-lg"></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% if cart_items|length > 3 %}
+<div class="col-12"><br>
+<p>Еще {{ cart_items|length|add:"-3" }} товаров в корзине</p>
+</div>
+{% endif %}
+{% else %}
+
+  <p>Корзина пуста</p>
+{% endif %}
+
+                      </div>
+                      <div class="col-12">
+                        <ul class="list-group list-group-minimal">
+                          <li class="list-group-item d-flex justify-content-between align-items-center text-uppercase font-weight-bold">
+                            сумма:
+                            <span>{{total_price}} ₽</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-12">
+                        <a href="{% url 'cart' %}" class="btn btn-primary btn-block">Перейти в корзину</a>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <!-- admin panel -->
+            {% if user.is_staff %}
+            <li class="d-none d-lg-inline nav-item dropdown dropdown-md dropdown-hover">
+              <a class="nav-icon" href='/admin/'>
+                <i class="bi bi-person-gear"></i>
+              </a>
+            </li>
+            {% endif %}
+              </ul>
+            </div>
+
+          <div class="order-2 d-flex d-lg-none" id="navbarMenuMobile">
+              <ul class="navbar-nav navbar-nav--icons ml-auto position-relative">
+
+                <!-- account -->
+                <li class="nav-item">
+                  <a href="{% url 'login' %}" class="nav-icon"><i class="bi bi-person-circle"></i></a>
+                </li>
+
+                <!-- favourite -->
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+                  <a href="{% url 'login' %}" class="nav-icon"><i class="bi bi-heart"></i></a>
+                </li>
+
+                <!-- cart -->
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+                  <a href="{% url 'cart' %}" class="nav-icon"><i class="bi bi-bag"></i></a>
+                </li>
+
+                  {% if user.is_staff %}
+                <li class="nav-item dropdown dropdown-md dropdown-hover">
+                  <a href="/admin/" class="nav-icon"><i class="bi bi-person-gear"></i></a>
+                </li>
+                  {% endif %}
+              </ul>
+          </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    {% block body %}
+    {% endblock %}
+
+    <!-- footer -->
+    <footer class="bg-dark pb-0 text-white">
+      <div class="container">
+        <div class="row justify-content-md-between gutter-2">
+
+          <!-- menu -->
+          <div class="order-1 col-md-8 col-lg-4">
+            <div class="row">
+              <div class="col">
+                <h4 class="eyebrow mb-1">Компания</h4>
+                <ul class="menu-list">
+                  <li class="menu-list-item"><a href="{% url 'about' %}" class="menu-list-link">О нас</a></li>
+                  <li class="menu-list-item"><a href="{% url 'contact' %}" class="menu-list-link">Контакты</a></li>
+                </ul>
+              </div>
+              <div class="col">
+                <h4 class="eyebrow mb-1">Поддержка</h4>
+                <ul class="menu-list">
+                  <li class="menu-list-item"><a href="{% url 'support' %}#section1" class="menu-list-link">Доставка</a></li>
+                  <li class="menu-list-item"><a href="{% url 'support' %}#section2" class="menu-list-link">Возврат</a></li>
+                  <li class="menu-list-item"><a href="{% url 'support' %}#section3" class="menu-list-link">Оплата</a></li>
+                  <li class="menu-list-item"><a href="{% url 'support' %}" class="menu-list-link">FAQ</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- subscribe -->
+          <div class="order-2 order-md-3 order-lg-2 col-md-8 col-lg-4">
+            <h4 class="eyebrow mb-1">Подписаться на наши новости</h4>
+            <form method="POST" action="{% url 'spam' %}" class="input-combined mb-2">
+                {% csrf_token %}
+              <input type="text" name="email" class="form-control" placeholder="Email" aria-label="Your Email" aria-describedby="button-addon2">
+              <button class="btn btn-white" type="submit" id="button-addon2">Подписаться</button>
+              <span class="input-combined_indicator"></span>
+            </form>
+            <ul class="list list--horizontal">
+              <li><a href="" class="text-hover-facebook"><i class="fs-28 bi bi-instagram"></i></a></li>
+              <li><a href="" class="text-hover-facebook"><i class="ms-1 fs-28 bi bi-telegram"></i></a></li>
+              <li><a href="" class="text-hover-instagram"><i class="ms-1 fs-28 bi bi-messenger"></i></a></li>
+            </ul>
+            <br>
+            <ul class="list list--horizontal mt-2">
+              <li><img src="{% static 'main/images/visa-1.svg' %}" class="payment" alt="Image"></li>
+              <li><img src="{% static 'main/images/master-card-1.svg' %}" class="payment" alt="Image"></li>
+              <li><img src="{% static 'main/images/mir.png' %}" class="payment" alt="Image"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-transparent mt-8 py-2">
+        <div class="container">
+          <div class="row align-items-center gutter-1">
+            <div class="col-md-12">
+              <p class="small text-muted text-center">© 2023 SHOPY. Product made by <a href="https://vk.com/wellknwnarlekin" class="underline">Михаил Карпухин</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+    <script src="{% static 'main/scripts/vendor.min.js' %}"></script>
+    <script src="{% static 'main/scripts/app.js' %}"></script>
+
+</body>
+</html>

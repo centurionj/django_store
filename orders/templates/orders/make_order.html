@@ -1,0 +1,211 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+{% block title %}
+Заказ
+{% endblock %}
+{% block body %}
+
+
+    <!-- checkout -->
+    <section>
+    <form method="post" action="{% url 'make_order' %}">
+                   {% csrf_token %}
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1>Оформить заказ</h1>
+          </div>
+        </div>
+        <div class="row gutter-1">
+
+
+          <div class="col">
+
+            <!-- address -->
+            <div class="bg-white p-2 p-lg-3 mb-1">
+                <form method="post" action="{% url 'change_personal_data' %}">
+                    {% csrf_token %}
+              <div class="row gutter-1 align-items-center">
+                <div class="col-md-6">
+                  <h2 class="text-uppercase fs-20">Адрес доставки</h2>
+                </div>
+                <div class="col-md-6 text-md-right">
+                  <button type="submit" class="underline" data-toggle="modal" data-target="#adresses" style="border: none; background: none; padding: 0;">
+                      <i class="bi bi-cloud-download"></i> Сохранить изменения
+                  </button>
+                </div>
+              </div>
+
+              <fieldset class="mb-2">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" name="first_name" id="first_name" class="form-control form-control-lg" placeholder="Name" required="" value="{{ first_name }}">
+                          <label for="first_name">Имя</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" name="last_name" id="last_name" class="form-control form-control-lg" placeholder="last_name" required="" value="{{ last_name }}">
+                      <label for="inputSurname">Фамилия</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="mb-2">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="tel" name="phone_number" pattern="[+]?[78]([-]?\d{3}){2}[-]?\d{2}[-]?\d{2}" id="phone_number" class="form-control form-control-lg" placeholder="Номер телефона" required="" value="{{ phone_number }}">
+                          <label for="phone_number">Телефон</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="Номер телефона" required="" value="{{ address }}">
+                          <label for="address">Адрес (город, улица, дом, индекс)</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+                </form>
+            </div>
+
+            <!-- options -->
+            <div class="bg-white p-2 p-lg-3 mb-1">
+  <h2 class="mb-3 text-uppercase fs-20">Выбор доставки</h2>
+  <div class="custom-control custom-choice">
+    <input type="radio" name="options" value="standard" class="custom-control-input" id="custom-choice-1" required>
+    <label class="custom-control-label text-dark d-flex justify-content-between align-items-center" for="custom-choice-1">
+      <span>
+        <h4 class="custom-choice-title">Бесплатная</h4>
+        <span class="text-muted fs-14">По городу</span>
+      </span>
+      <span class="text-uppercase">бесплатно</span>
+    </label>
+  </div>
+  <div class="custom-control custom-choice">
+    <input type="radio" name="options" value="express" class="custom-control-input" id="custom-choice-2" required>
+    <label class="custom-control-label text-dark d-flex justify-content-between align-items-center" for="custom-choice-2">
+      <span>
+        <h4 class="custom-choice-title">Транспортная компания</h4>
+        <span class="text-muted fs-14">Для выбора транспортной компании с вами свяжется наш консультант</span>
+      </span>
+      <span class="text-uppercase">Платная</span>
+    </label>
+  </div>
+</div>
+
+
+            <!-- payment -->
+            <div class="bg-white p-2 p-lg-3 mb-1">
+              <h2 class="mb-2 text-uppercase fs-20">Оплата</h2>
+              <fieldset class="mb-3">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" id="inputCardNumber" class="form-control form-control-lg" placeholder="Card Number" required>
+                      <label for="inputCardNumber">Номер карты</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-label-group">
+                      <input type="text" id="inputExpiryDate" class="form-control form-control-lg" placeholder="Expiry Date (MM/YY)" required>
+                      <label for="inputExpiryDate">ММ/ГГ</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-label-group">
+                      <input type="text" id="inputCvv" class="form-control form-control-lg" placeholder="CVV" required>
+                      <label for="inputCvv">CVV</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-label-group">
+                      <input type="text" id="inputCardName" class="form-control form-control-lg" placeholder="Name on card" required>
+                      <label for="inputCardName">Имя владельца карты</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+
+              <h3 class="mb-2 text-uppercase fs-16">Работаем с платежными системами</h3>
+              <ul class="list list--horizontal">
+                <li><img src="{% static 'main/images/visa-1.svg' %}" class="payment" alt="Image"></li>
+              <li><img src="{% static 'main/images/master-card-1.svg' %}" class="payment" alt="Image"></li>
+              <li><img src="{% static 'main/images/mir.png' %}" class="payment" alt="Image"></li>
+              </ul>
+            </div>
+
+            <!-- place order -->
+
+            <div class="bg-white p-2 p-md-3">
+              <button type="submit" class="btn btn-lg btn-primary btn-block mb-2">Оплатить</button>
+              <small class="text-muted">Оплачивая заказ, вы соглашаетесь с нашими <a href="">Условиями и соглашениями</a>, политики конфиденциальности и возврата. Вы также соглашаетесь с тем, что SHOPY хранит некоторые ваши данные, которые могут быть использованы для улучшения ваших будущих покупок.</small>
+            </div>
+
+
+          </div>
+
+
+          <!-- sidebar -->
+          <aside class="col-lg-5">
+            <div class="bg-white p-2 p-lg-3">
+              <h2 class="mb-3 text-uppercase fs-20">Ваш заказ</h2>
+                {% if cart_items %}
+                {% for cart_item in cart_items %}
+
+                    <div class="cart-item">
+                <a href="{% url 'product_detail' cart_item.product.slug %}" class="cart-item-image"><img src="{{ cart_item.product.image }}" alt="Image"></a>
+                <div class="cart-item-body">
+                  <div class="row">
+                    <div class="col-9">
+                      <h5 class="cart-item-title">{{ cart_item.product.name }}</h5>
+                      <ul class="list list--horizontal fs-14">
+                        <li>{{ cart_item.price }} ₽</li>
+                      </ul>
+                    </div>
+                    <div class="col-3 text-right">
+                      <ul class="cart-item-options">
+                        <li><a href="{% url 'del_cart_item' cart_item_id=cart_item.id %}" class="bi bi-x-lg"></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                {% endfor %}
+            {% else %}
+                    <p>Корзина пуста</p>
+                {% endif %}
+
+              <hr class="my-3">
+              <ul class="list-group list-group-minimal">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Количество
+                  <span>{{ item_count }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center text-uppercase font-weight-bold">
+                 К оплате
+                  <span>{{total_price}} ₽</span>
+                </li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </form>
+    </section>
+
+
+{% endblock %}

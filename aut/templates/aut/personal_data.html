@@ -1,0 +1,248 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Аккаунт
+{% endblock %}
+{% block body %}
+    <!-- content -->
+    <section>
+      <div class="container">
+        <div class="row gutter-1 gutter-md-2">
+          <div class="col-lg-4">
+            <aside class="bg-white p-2 p-md-3">
+              <h3 class="fs-20 text-uppercase text-muted mb-2">Здравствуйте, {{ first_name }}!</h3>
+              <div class="nav nav-menu flex-column lavalamp" id="sidebar-1" role="tablist"><div class="lavalamp-object ease" style="transition-duration: 0.2s; width: 313.328px; height: 86px; transform: translate(0px, 172px);"></div>
+                <a class="nav-link lavalamp-item" data-toggle="tab" href="#sidebar-1-1" role="tab" aria-controls="sidebar-1" aria-selected="false" style="z-index: 5; position: relative;"><i class="fs-24 bi bi-box2-heart"></i> Заказы</a>
+                <a class="nav-link lavalamp-item" data-toggle="tab" href="#sidebar-1-2" role="tab" aria-controls="sidebar-1-2" aria-selected="false" style="z-index: 5; position: relative;"><i class="fs-24 bi bi-heart"></i> Понравившееся</a>
+                <a class="nav-link active lavalamp-item" data-toggle="tab" href="#sidebar-1-3" role="tab" aria-controls="sidebar-1-3" aria-selected="true" style="z-index: 5; position: relative;"><i class="fs-24 bi bi-person-square"></i> Личные данные </a>
+                <a class="nav-link lavalamp-item" data-toggle="tab" href="#sidebar-1-4" role="tab" aria-controls="sidebar-1-4" aria-selected="false" style="z-index: 5; position: relative;"><i class="fs-24 bi bi-shield-lock"></i> Смена пароля</a>
+
+              </div>
+            </aside>
+          </div>
+          <div class="col-lg-8">
+            <div class="bg-white p-2 p-md-3">
+              <div class="tab-content" id="myTabContent">
+
+                <!-- orders -->
+                <div class="tab-pane fade" id="sidebar-1-1" role="tabpanel" aria-labelledby="sidebar-1-1">
+  <div class="row">
+    <div class="col">
+      <h2>Заказы</h2>
+    </div>
+  </div>
+  <div class="row gutter-2">
+    {% if orders %}
+    {% for order in orders %}
+    <div class="col-12">
+      <div class="card card-data bordered">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="card-title fs-18">
+                <a href="">Заказ № {{ order.id }}</a>
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <ul class="order-preview">
+            {% for item in order_items %}
+            {% if item.order == order %}
+            <li>
+              <a href="{% url 'product_detail' item.product.slug %}" title="" data-toggle="tooltip" data-placement="top" data-original-title="{{ item.product.name }}">
+                <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
+              </a>
+            </li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="card-body">
+          <ul class="order-meta">
+            <li>
+              <h5 class="order-meta-title">Order #</h5>
+              <span>{{ order.id }}</span>
+            </li>
+            <li>
+              <h5 class="order-meta-title">Дата оплаты</h5>
+              <span>{{ order.date_created }}</span>
+            </li>
+            <li>
+              <h5 class="order-meta-title">Сумма</h5>
+              <span>{{ order.total_price }} ₽</span>
+            </li>
+            <li>
+              <h5 class="order-meta-title">Статус</h5>
+              <span class="text-muted">{{ order.get_status_display }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>У вас нет ни одного заказа</p>
+    {% endif %}
+  </div>
+</div>
+
+
+                <!-- favorites -->
+                <div class="tab-pane fade" id="sidebar-1-2" role="tabpanel" aria-labelledby="sidebar-1-2">
+  <div class="row align-items-end">
+    <div class="col">
+      <h2>Понравившееся</h2>
+    </div>
+  </div>
+
+  <div class="row gutter-2">
+  {% if favourite_items %}
+    {% for favourite_item in favourite_items %}
+    <div class="col-md-6">
+      <div class="card card-product">
+        <figure class="card-image">
+          <a href="{% url 'product_detail' favourite_item.slug %}">
+            <img src="{{ favourite_item.image }}" alt="Image">
+          </a>
+        </figure>
+        <a href="{% url 'remove_favorite' favourite_item.id %}" class="action"><i class="bi bi-x-lg"></i></a>
+        <div class="card-footer">
+          <h3 class="card-title"><a href="{% url 'product_detail' favourite_item.slug %}">{{ favourite_item.name }}</a></h3>
+          <span class="price">{{ favourite_item.price }} ₽</span>
+        </div>
+        <a href="{% url 'product_detail' favourite_item.slug %}" class="btn btn-block btn-primary">Добавить в корзину</a>
+      </div>
+    </div>
+    {% endfor %}
+  {% else %}
+    <p>Вы не лайкнули ни одного товара</p>
+  {% endif %}
+</div>
+
+</div>
+
+                <!-- personal data -->
+                <div class="tab-pane fade show active" id="sidebar-1-3" role="tabpanel" aria-labelledby="sidebar-1-3">
+                  <form method="post" action="{% url 'change_personal_data' %}">
+                    {% csrf_token %}
+                    <div class="row">
+                    <div class="col">
+                      <h2>Личные данные</h2>
+                    </div>
+                  </div>
+                  <fieldset class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="text" name="first_name" id="first_name" class="form-control form-control-lg" placeholder="Name" required="" value="{{ first_name }}">
+                          <label for="first_name">Имя</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="text" name="last_name" id="last_name" class="form-control form-control-lg" placeholder="Surname" required="" value="{{ last_name }}">
+                          <label for="last_name">Фамилия</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="tel" name="phone_number" pattern="[+]?[78]([-]?\d{3}){2}[-]?\d{2}[-]?\d{2}" id="phone_number" class="form-control form-control-lg" placeholder="Номер телефона" required="" value="{{ phone_number }}">
+                          <label for="phone_number">Телефон</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                    <fieldset class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="Номер телефона" required="" value="{{ address }}">
+                          <label for="address">Адрес</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Email Address" required="" value="{{ email }}">
+                          <label for="email">Email</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                    <div class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          {% if not is_verify %}
+                            <a style="color: red;">Аккаунт не подтвержден, действия на сайте ограничены. Для подтверждения, перейдите по ссылке отправленной на Email</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                  </div>
+                  </form>
+
+                </div>
+
+                <!-- change password -->
+                <div class="tab-pane fade" id="sidebar-1-4" role="tabpanel" aria-labelledby="sidebar-1-4">
+  <form method="post" action="{% url 'change_password' %}">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col">
+        <h2>Изменить пароль</h2>
+      </div>
+    </div>
+
+    <fieldset class="mb-2">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="password" id="inputPassword" class="form-control form-control-lg" placeholder="Старый пароль" required="" value="$120-N&lt;&gt;&amp;^9">
+                          <label for="inputPassword">Старый пароль</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-label-group">
+                          <input type="password" name="new_password" id="inputPassword2" class="form-control form-control-lg" placeholder="New Password" required="">
+                          <label for="inputPassword2">Новый пароль</label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+    <div class="row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

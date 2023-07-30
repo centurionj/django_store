@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+О нас
+{% endblock %}
+{% block body %}
+<!-- hero -->
+    <section class="py-0 no-overflow vh-100 scroll-down">
+      <div class="image image-scroll skrollable skrollable-between" style="background-image: url({% static 'main/images/about-bg.jpg' %}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col text-center">
+            <i class="icon-check"></i>
+          </div>
+        </div>
+        <div class="row justify-content-center vh-100">
+          <div class="col-md-4 align-self-center text-white text-center">
+            <h1 class="text-uppercase fs-60">Our Story</h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- article -->
+    <article>
+      <div class="container">
+        <div class="row justify-content-center gutter-1">
+
+          <!-- post -->
+          <div class="col-lg-8">
+            <div class="bg-white p-4">
+              <h2 class="text-uppercase">Наша история</h2>
+              <p>Наш брендовый магазин одежды и ювелирных украшений родился из страсти к красоте и стилю. Начав с небольшой мастерской, мы стремились создавать уникальные и изысканные изделия.</p>
+              <p>Со временем наша мастерская превратилась в престижный бутик, где мы предлагаем эксклюзивные коллекции, отражающие нашу приверженность к качеству и элегантности.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <figure class="equal equal-50">
+              <span class="image" style="background-image: url({% static 'main/images/image-1.jpg' %})"></span>
+            </figure>
+          </div>
+
+          <div class="col-lg-8">
+            <div class="bg-white p-4">
+              <h2 class="text-uppercase">Дизайн</h2>
+              <p>Наш магазин одежды и ювелирных украшений вдохновляется роскошью и изысканностью в дизайне. Мы стремимся создавать изделия, которые сочетают элегантные линии, утонченные детали и высокое качество материалов. Наш стиль отражает современные тенденции, сохраняя при этом классическую эстетику.</p>
+              <p>Мы исследуем новые формы, экспериментируем с текстурами и цветами, чтобы предложить уникальные и неповторимые вещи, способные подчеркнуть индивидуальность и выразить стиль каждого нашего клиента.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </article>
+{% endblock %}

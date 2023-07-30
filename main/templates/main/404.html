@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+404
+{% endblock %}
+{% block body %}
+    <!-- 404 -->
+    <section class="py-0 text-white">
+      <div class="image image-overlay" style="background-image:url({% static 'main/images/contact-bg.jpg' %})"></div>
+      <div class="container">
+        <div class="row align-items-center justify-content-center vh-100">
+          <div class="col-10 col-md-8 col-lg-4 text-center">
+            <h1 class="display-1 font-weight-bold">404</h1>
+            <p class="lead">Страница, которую вы искали, не найдена, если вы считаете, что это может быть ошибка,  <a href="{% url 'contact' %}" class="d-inline-block underline">напишите нам</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
