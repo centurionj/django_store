@@ -2,7 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.crypto import get_random_string
 from rest_framework.views import APIView
 from django.urls import reverse
@@ -14,8 +14,9 @@ from .tasks import send_verification_email_task, send_one_time_password_task
 from orders.models import Order, OrderItem
 
 
-@login_required(login_url='login')
-class PersonalDataView(View):
+class PersonalDataView(LoginRequiredMixin, View):
+    login_url = 'login'  # Указываем URL-адрес страницы входа
+
     """
     рендер личного кабинета со всеми данными и опциями (заказ, лайк и тд)
     """
