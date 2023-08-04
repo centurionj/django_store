@@ -24,6 +24,11 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+# необходимо установить на первое место,
+# чтоб джазмин перекрыл встроенную админку
+
+    'jazzmin',
+
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'jazzmin',
+
     'mptt',
     'rest_framework',
     'captcha',
