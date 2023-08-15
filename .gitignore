@@ -2,8 +2,7 @@
 venv/
 env/
 
-# файлы миграций базы данных
-/migrations/
+media/
 
 # локальные настройки
 local_settings.py

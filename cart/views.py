@@ -56,7 +56,12 @@ class AddToCartView(View):
         product = get_object_or_404(Product, id=product_id)
         cart, _ = Cart.objects.get_or_create(user=request.user, defaults={'is_active': True})
 
-        cart_item, item_created = CartItem.objects.get_or_create(cart=cart, product=product, size=size_title)
+        cart_item, item_created = CartItem.objects.get_or_create(
+            cart=cart,
+            product=product,
+            size=size_title
+        )
+
         cart_item.quantity = cart_item.quantity + 1 if not item_created else 1
         cart_item.price = product.price
         cart_item.save()

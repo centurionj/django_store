@@ -32,8 +32,13 @@
       <div class="container">
         <div class="row">
           <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="{% url 'index' %}" class="navbar-brand order-1 order-lg-2"><img src="{% static 'main/images/logo.svg' %}" alt="Logo"></a>
-
+          <a href="{% url 'index' %}" class="navbar-brand order-1 order-lg-2">
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="Logo">
+    {% else %}
+        <img src="{% static 'main/images/logo.svg' %}" alt="Logo">
+    {% endif %}
+</a>
             <div class="collapse navbar-collapse order-4 order-lg-1" id="navbarMenu">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown dropdown-lg dropdown-hover">

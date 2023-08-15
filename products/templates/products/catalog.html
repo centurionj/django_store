@@ -129,58 +129,58 @@
 
                 <!-- content -->
                 <div class="col-lg-9">
-                    <div class="row gutter-1">
-                        {% for product in page_obj %}
-                        <div class="col-6 col-md-4">
-                            <div class="card card-product">
-                                <figure class="card-image">
-                                    <a href="{% url 'add_product_to_favorite' product.id %}" class="action"><i class="bi bi-heart"></i></a>
-                                    <a href="{% url 'product_detail' product.slug %}">
-                                        <img src="{{ product.image }}" alt="{{ product.name }}">
-                                        {% for image in product.images.all %}
-                                        <img src="{{ image.image }}" alt="Image">
-                                        {% endfor %}
-                                    </a>
-                                </figure>
-                                <div class="card-footer">
-                                    <h3 class="card-title"><a href="">{{ product.name }}</a></h3>
-                                    <span class="brand">{{ product.brand }}</span>
-                                    <span class="price">{{ product.price }} ₽</span>
-                                </div>
-                            </div>
-                        </div>
-                        {% if forloop.counter|divisibleby:3 and not forloop.last %}
-                    </div>
-                    <div class="row gutter-1">
-                        {% endif %}
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 gutter-1">
+        {% for product in page_obj %}
+        <div class="col">
+            <div class="card card-product h-100 d-flex flex-column">
+                <figure class="card-image">
+                    <a href="{% url 'add_product_to_favorite' product.id %}" class="action"><i class="bi bi-heart"></i></a>
+                    <a href="{% url 'product_detail' product.slug %}">
+                        <img src="{{ product.image }}" alt="{{ product.name }}" class="img-fluid">
+                        {% for image in product.images.all %}
+                        <img src="{{ image.image }}" alt="Image" class="img-fluid">
                         {% endfor %}
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination justify-content-center">
-                                    {% if page_obj.has_previous %}
-<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.previous_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Предыдущая</a></li>
-{% endif %}
-
-{% for num in page_obj.paginator.page_range %}
-{% if page_obj.number == num %}
-<li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
-{% else %}
-<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ num }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">{{ num }}</a></li>
-{% endif %}
-{% endfor %}
-
-{% if page_obj.has_next %}
-<li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.next_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Следующая</a></li>
-{% endif %}
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-
+                    </a>
+                </figure>
+                <div class="card-footer mt-auto">
+                    <h3 class="card-title"><a href="">{{ product.name }}</a></h3>
+                    <span class="brand">{{ product.brand }}</span>
+                    <span class="price">{{ product.price }} ₽</span>
                 </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:4 and not forloop.last %}
+        </div>
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-2 gutter-1">
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.previous_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Предыдущая</a></li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ num }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ base_url }}?page={{ page_obj.next_page_number }}{% if encoded_params %}&{{ encoded_params }}{% endif %}">Следующая</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </section>

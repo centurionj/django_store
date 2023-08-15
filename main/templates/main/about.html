@@ -7,7 +7,13 @@
 {% block body %}
 <!-- hero -->
     <section class="py-0 no-overflow vh-100 scroll-down">
-      <div class="image image-scroll skrollable skrollable-between" style="background-image: url({% static 'main/images/about-bg.jpg' %}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+    {% if about %}
+        {% with about_image=about.first %}
+        <div class="image image-scroll skrollable skrollable-between" style="background-image: url({{ about_image.image.url }}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+    {% endwith %}
+    {% else %}
+        <div class="image image-scroll skrollable skrollable-between" style="background-image: url({% static 'main/images/about-bg.jpg' %}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+    {% endif %}
       <div class="container">
         <div class="row">
           <div class="col text-center">
@@ -29,25 +35,45 @@
 
           <!-- post -->
           <div class="col-lg-8">
+              {% if about_info %}
+                  <div class="bg-white p-4">
+              <h2 class="text-uppercase">{{ about_info.first.header }}</h2><br>
+              <p>{{ about_info.first.text}}</p>
+                </div>
+              {% else %}
             <div class="bg-white p-4">
               <h2 class="text-uppercase">Наша история</h2>
               <p>Наш брендовый магазин одежды и ювелирных украшений родился из страсти к красоте и стилю. Начав с небольшой мастерской, мы стремились создавать уникальные и изысканные изделия.</p>
               <p>Со временем наша мастерская превратилась в престижный бутик, где мы предлагаем эксклюзивные коллекции, отражающие нашу приверженность к качеству и элегантности.</p>
             </div>
+              {% endif %}
           </div>
 
           <div class="col-lg-8">
             <figure class="equal equal-50">
+                {% if about %}
+                    {% with about_image=about.last %}
+        <span class="image" style="background-image: url({{ about_image.image.url }})"></span>
+    {% endwith %}
+                {% else %}
               <span class="image" style="background-image: url({% static 'main/images/image-1.jpg' %})"></span>
+                {% endif %}
             </figure>
           </div>
 
           <div class="col-lg-8">
+              {% if about_info %}
+                  <div class="bg-white p-4">
+              <h2 class="text-uppercase">{{ about_info.last.header }}</h2>
+              <p>{{ about_info.last.text }}</p>
+            </div>
+              {% else %}
             <div class="bg-white p-4">
               <h2 class="text-uppercase">Дизайн</h2>
               <p>Наш магазин одежды и ювелирных украшений вдохновляется роскошью и изысканностью в дизайне. Мы стремимся создавать изделия, которые сочетают элегантные линии, утонченные детали и высокое качество материалов. Наш стиль отражает современные тенденции, сохраняя при этом классическую эстетику.</p>
               <p>Мы исследуем новые формы, экспериментируем с текстурами и цветами, чтобы предложить уникальные и неповторимые вещи, способные подчеркнуть индивидуальность и выразить стиль каждого нашего клиента.</p>
             </div>
+              {% endif %}
           </div>
 
         </div>

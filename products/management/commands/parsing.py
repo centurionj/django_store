@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from . import DateParser
+from .DateParser import DateParser
 
 
 class Command(BaseCommand):

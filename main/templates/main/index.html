@@ -12,7 +12,13 @@
           <div>
             <div class="card card-tile">
               <figure class="card-image equal vh-50 vh-md-100">
+                  {% if men %}
+                      {% for m in men %}
+                      <span class="image image--scroll skrollable skrollable-between" style="background-image: url({{ m.image.url }}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></span>
+                      {% endfor %}
+                  {% else %}
                 <span class="image image--scroll skrollable skrollable-between" style="background-image: url({% static 'main/images/1653384696_11-celes-club-p-chernii-muzhskoi-fon-krasivie-11.jpg' %}); transform: translateY(13.1953%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></span>
+                  {% endif %}
               </figure>
               <div class="card-footer text-white p-lg-5">
                 <div class="row gutter-1">
@@ -43,7 +49,13 @@
         <div class="row gutter-1">
   <div class="col-lg-6">
     <figure class="equal">
-      <span class="image" style="background-image: url({% static 'main/images/18-6-Large.jpg' %})"></span>
+        {% if men_base %}
+            {% for m in men_base %}
+      <span class="image" style="background-image: url({{ m.image.url }})"></span>
+            {% endfor %}
+        {% else %}
+                  <span class="image" style="background-image: url({% static 'main/images/18-6-Large.jpg' %})"></span>
+        {% endif %}
     </figure>
   </div>
   <div class="col-6 col-lg-3">
@@ -94,7 +106,13 @@
 
     <!-- cta -->
     <section class="py-0 no-overflow">
+    {% if women %}
+        {% for w in women %}
+              <div class="image image-scroll skrollable skrollable-before" style="background-image: url({{ w.image.url }}); transform: translateY(0%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+        {% endfor %}
+        {% else %}
       <div class="image image-scroll skrollable skrollable-before" style="background-image: url({% static 'main/images/indw1.jpg' %}); transform: translateY(0%);" data--100-bottom-top="transform: translateY(0%);" data-top-bottom="transform: translateY(25%);"></div>
+        {% endif %}
       <div class="container">
         <div class="row gutter-2 gutter-md-4 justify-content-between vh-75 py-10">
           <div class="col-md-6 align-self-end">

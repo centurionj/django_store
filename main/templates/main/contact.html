@@ -16,7 +16,11 @@
                 <div class="card-body text-center">
                   <i class="bi bi-telephone fs-40 mb-4"></i>
                   <h3 class="mb-1">Позвони нам</h3>
+                    {% if contacts_info %}
+                        <span class="fs-18 text-dark">{{ contacts_info.first.text }}</span>
+                    {% else %}
                   <span class="fs-18 text-dark">+7-999-888-77-66</span>
+                    {% endif %}
                   <p class="mt-1">Понедельник - Пятница 10:00-18:00</p>
                 </div>
               </div>
@@ -28,7 +32,11 @@
                 <div class="card-body text-center">
                   <i class="bi bi-envelope fs-40 mb-4"></i>
                   <h3 class="mb-1">Напиши нам</h3>
+                    {% if contacts_info %}
+                    <a href="" class="fs-18 underlined">{{ contacts_info.last.text }}</a>
+                    {% else %}
                   <a href="" class="fs-18 underlined">anyemail@mail.ru</a>
+                     {% endif %}
                   <p class="mt-1">Отвечаем в течение 24 часов</p>
                 </div>
               </div>

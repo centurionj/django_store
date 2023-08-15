@@ -32,7 +32,7 @@ class CatalogView(View):
         if request.GET.get('sale'):
             products = Product.objects.filter(is_sale=True)
 
-        paginator = Paginator(products, 9)
+        paginator = Paginator(products, 12)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 

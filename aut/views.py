@@ -15,7 +15,7 @@ from orders.models import Order, OrderItem
 
 
 class PersonalDataView(LoginRequiredMixin, View):
-    login_url = 'login'  # Указываем URL-адрес страницы входа
+    login_url = 'login'  # Указываем URL страницы входа
 
     """
     рендер личного кабинета со всеми данными и опциями (заказ, лайк и тд)

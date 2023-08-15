@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class SetupsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'setups'
+    verbose_name = 'Настройки сайта'

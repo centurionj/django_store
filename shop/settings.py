@@ -6,17 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -24,7 +17,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-# необходимо установить на первое место,
+# jazzmin необходимо установить на первое место,
 # чтоб джазмин перекрыл встроенную админку
 
     'jazzmin',
@@ -50,6 +43,7 @@ INSTALLED_APPS = [
     'orders',
     'products',
     'promocodes',
+    'setups',
     'static',
 ]
 
@@ -80,6 +74,7 @@ TEMPLATES = [
                 'main.context_processors.header',
                 'cart.context_processors.cart_context',
                 'favourites.context_processors.favourite_context',
+                'setups.context_processors.setup',
             ],
         },
     },
@@ -99,7 +94,6 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -118,7 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'ru'
 
@@ -129,8 +122,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# JAZZMIN
 
 JAZZMIN_SETTINGS = {
     'site_title': 'Админка',
@@ -149,8 +141,6 @@ JAZZMIN_SETTINGS = {
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -169,14 +159,14 @@ SESSION_COOKIE_AGE = 30 * 24 * 3600  # для админки
 SESSION_EXPIRE_SECONDS = 3600  # для обычных пользователей
 SESSION_COOKIE_SECURE = False  # для использования HTTPS (True)
 SESSION_COOKIE_HTTPONLY = True  # закрыл доступ к cookie через JS
-SESSION_SAVE_EVERY_REQUEST = True # для сохранения сессии при перемещении на сайте
+SESSION_SAVE_EVERY_REQUEST = True  # для сохранения сессии при перемещении на сайте
 SESSION_COOKIE_SAMESITE = 'Lax'
 
 # Настройки электронной почты
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = os.getenv('EMAIL_PORT')
+EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
@@ -184,12 +174,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# g-recaptcha v3
+# настройки google recaptcha v2
 
 RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY')
 
-# Chat-GPT
+# настройки Chat-GPT
 
 GPT_API_KEY = os.getenv('GPT_API_KEY')
 

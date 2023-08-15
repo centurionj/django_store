@@ -28,4 +28,4 @@ def send_check_task(email, order_id, total_price):
     admin_subject = 'Чек'
     admin_message = f'Уведомление об оплате заказа \n {order_id} \n\n Стоимостью: {total_price} \nRUB'
 
-    send_mail(admin_subject, admin_message, settings.EMAIL_HOST_USER, ['mishan2003@bk.ru'])
+    send_mail(admin_subject, admin_message, settings.EMAIL_HOST_USER, ['ostory.shop@mail.ru'])
