@@ -29,50 +29,28 @@
             <div class="row gutter-4">
                 <!-- sidebar -->
                 <aside class="col-lg-3 sidebar">
-                {% if gender == 'F' %}
-                    <div class="widget d-none d-lg-block">
-                        <span class="widget-title">Women</span>
-                            {% for brand in brand_list_women %}
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                       {{ brand.name }}
-                                        </button>
-                                    </h2>
-                                    {% for category in brand.categories.all %}
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <ul>
-                                            <li class="accordion-body"><a href="{% url 'catalog' %}?gender=F&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
-                                        </ul>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endfor %}
-                    </div><br>
-                    {% else %}
                 <div class="widget d-none d-lg-block">
-                            <span class="widget-title">Men</span>
-                            {% for brand in brand_list_men %}
-                            <div class="accordion accordion-flush" id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                       {{ brand.name }}
-                                        </button>
-                                    </h2>
-                                    {% for category in brand.categories.all %}
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <ul>
-                                            <li class="accordion-body"><a href="{% url 'catalog' %}?gender=M&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
-                                        </ul>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% endif %}<br>
+    <span class="widget-title">{% if gender == 'F' %}Women{% else %}Men{% endif %}</span>
+    {% for brand in brand_list_women %}
+    <div class="accordion accordion-flush" id="accordionFlushExample-{{ brand.id }}">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
+                <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
+                    {{ brand.name }}
+                </button>
+            </h2>
+            <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample-{{ brand.id }}">
+                <ul>
+                    {% for category in brand.categories.all %}
+                    <li class="accordion-body"><a href="{% url 'catalog' %}?gender={{ gender }}&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div><br>
+
 
                     <div class="widget">
                         <div class="d-flex justify-content-between">
@@ -180,7 +158,6 @@
         </div>
     </div>
 </div>
-
             </div>
         </div>
     </section>
