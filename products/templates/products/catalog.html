@@ -31,24 +31,43 @@
                 <aside class="col-lg-3 sidebar">
     <div class="widget">
         <span class="widget-title">{% if gender == 'F' %}Women{% else %}Men{% endif %}</span>
-        {% for brand in brand_list_women %}
-        <div class="accordion accordion-flush" id="accordionFlushExample-{{ brand.id }}">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
-                    <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
-                        {{ brand.name }}
-                    </button>
-                </h2>
-                <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample-{{ brand.id }}">
-                    <ul>
-                        {% for category in brand.categories.all %}
-                        <li class="accordion-body"><a href="{% url 'catalog' %}?gender={{ gender }}&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            {% if gender == 'F' %}
+                {% for brand in brand_list_women %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
+                            <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
+                                {{ brand.name }}
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample">
+                            <ul>
+                                {% for category in brand.categories.all %}
+                                    <li class="accordion-body"><a href="{% url 'catalog' %}?gender=F&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for brand in brand_list_men %}
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
+                            <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
+                                {{ brand.name }}
+                            </button>
+                        </h2>
+                        <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample">
+                            <ul>
+                                {% for category in brand.categories.all %}
+                                    <li class="accordion-body"><a href="{% url 'catalog' %}?gender=M&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
-        {% endfor %}
     </div><br>
     <div class="widget">
         <div class="d-flex justify-content-between">
@@ -70,9 +89,9 @@
                     <div class="card-body">
                         <div class="btn-group-toggle btn-group-square" data-toggle="buttons">
                             {% for size in sizes %}
-                            <label class="btn">
-                                <input type="checkbox" name="size_{{ size }}" id="size_{{ size }}" {% if size in selected_sizes %}checked{% endif %}> {{ size }}
-                            </label>
+                                <label class="btn">
+                                    <input type="checkbox" name="size_{{ size }}" id="size_{{ size }}" {% if size in selected_sizes %}checked{% endif %}> {{ size }}
+                                </label>
                             {% endfor %}
                         </div>
                     </div>
@@ -102,7 +121,6 @@
         </div>
     </div>
 </aside>
-
 
 
                 <!-- content -->
