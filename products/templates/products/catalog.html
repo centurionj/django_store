@@ -29,81 +29,81 @@
             <div class="row gutter-4">
                 <!-- sidebar -->
                 <aside class="col-lg-3 sidebar">
-                <div class="widget d-none d-lg-block">
-    <span class="widget-title">{% if gender == 'F' %}Women{% else %}Men{% endif %}</span>
-    {% for brand in brand_list_women %}
-    <div class="accordion accordion-flush" id="accordionFlushExample-{{ brand.id }}">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
-                <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
-                    {{ brand.name }}
-                </button>
-            </h2>
-            <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample-{{ brand.id }}">
-                <ul>
-                    {% for category in brand.categories.all %}
-                    <li class="accordion-body"><a href="{% url 'catalog' %}?gender={{ gender }}&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
-                    {% endfor %}
-                </ul>
+    <div class="widget">
+        <span class="widget-title">{% if gender == 'F' %}Women{% else %}Men{% endif %}</span>
+        {% for brand in brand_list_women %}
+        <div class="accordion accordion-flush" id="accordionFlushExample-{{ brand.id }}">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne-{{ brand.id }}">
+                    <button class="btn btn-link p-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-{{ brand.id }}" aria-expanded="false" aria-controls="flush-collapseOne-{{ brand.id }}">
+                        {{ brand.name }}
+                    </button>
+                </h2>
+                <div id="flush-collapseOne-{{ brand.id }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne-{{ brand.id }}" data-bs-parent="#accordionFlushExample-{{ brand.id }}">
+                    <ul>
+                        {% for category in brand.categories.all %}
+                        <li class="accordion-body"><a href="{% url 'catalog' %}?gender={{ gender }}&brand={{ brand.slug }}&category={{ category.slug }}">— {{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div><br>
+    <div class="widget">
+        <div class="d-flex justify-content-between">
+            <span class="widget-title">Фильтры
+                <button type="submit" class="btn btn-sm btn-primary btn-transparent small text-red">Применить</button>
+                <a href="?page=1" class="small text-red">сброс</a>
+            </span>
+        </div>
+        <div class="accordion" id="accordion-1">
+            <div class="card">
+                <div class="card-header" id="heading-1-2">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-2" aria-expanded="false" aria-controls="collapse-1-2">
+                            Размер
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse-1-2" class="collapse" aria-labelledby="heading-1-2">
+                    <div class="card-body">
+                        <div class="btn-group-toggle btn-group-square" data-toggle="buttons">
+                            {% for size in sizes %}
+                            <label class="btn">
+                                <input type="checkbox" name="size_{{ size }}" id="size_{{ size }}" {% if size in selected_sizes %}checked{% endif %}> {{ size }}
+                            </label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="heading-1-4">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-4" aria-expanded="false" aria-controls="collapse-1-4">
+                            Цена
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapse-1-4" class="collapse" aria-labelledby="heading-1-4">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="min-price">Минимальная цена:</label>
+                            <input type="number" class="form-control" id="min-price" name="min_price" min="0" value="{{ min_price }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="max-price">Максимальная цена:</label>
+                            <input type="number" class="form-control" id="max-price" name="max_price" min="0" value="{{ max_price }}">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    {% endfor %}
-</div><br>
+</aside>
 
 
-                    <div class="widget">
-                        <div class="d-flex justify-content-between">
-                            <span class="widget-title">Фильтры
-                                <button type="submit" class="btn btn-sm btn-primary btn-transparent small text-red">Применить</button>
-                                <a href="?page=1" class="small text-red">сброс</a>
-                            </span>
-                        </div>
-                        <div class="accordion" id="accordion-1">
-                            <div class="card">
-                                <div class="card-header" id="heading-1-2">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-2" aria-expanded="false" aria-controls="collapse-1-2">
-                                            Размер
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapse-1-2" class="collapse" aria-labelledby="heading-1-2">
-                                    <div class="card-body">
-                                        <div class="btn-group-toggle btn-group-square" data-toggle="buttons">
-                                            {% for size in sizes %}
-                                            <label class="btn">
-                                                <input type="checkbox" name="size_{{ size }}" id="size_{{ size }}" {% if size in selected_sizes %}checked{% endif %}> {{ size }}
-                                            </label>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header" id="heading-1-4">
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse-1-4" aria-expanded="false" aria-controls="collapse-1-4">
-                                            Цена
-                                        </button>
-                                    </h5>
-                                </div>
-                                <div id="collapse-1-4" class="collapse" aria-labelledby="heading-1-4">
-                                    <div class="card-body">
-                                        <div class="form-group">
-                                            <label for="min-price">Минимальная цена:</label>
-                                            <input type="number" class="form-control" id="min-price" name="min_price" min="0" value="{{ min_price }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="max-price">Максимальная цена:</label>
-                                            <input type="number" class="form-control" id="max-price" name="max_price" min="0" value="{{ max_price }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
 
                 <!-- content -->
                 <div class="col-lg-9">
