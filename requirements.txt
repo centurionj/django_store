@@ -42,7 +42,7 @@ packaging==23.1
 pguard==0.4.0
 Pillow==9.5.0
 prompt-toolkit==3.0.39
-psycopg2==2.9.6
+psycopg2-binary==2.9.5
 Pygments==2.15.1
 python-dateutil==2.8.2
 python-dotenv==1.0.0
