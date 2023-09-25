@@ -1,3 +1,5 @@
+from PIL import Image
+
 from django.db import models
 
 
@@ -10,6 +12,14 @@ class Logo(models.Model):
 
     def __str__(self):
         return str(self.image.name)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.image:
+            image = Image.open(self.image.path)
+            image = image.resize((98, 23), Image.ANTIALIAS)
+            image.save(self.image.path)
 
 
 class Photo(models.Model):
